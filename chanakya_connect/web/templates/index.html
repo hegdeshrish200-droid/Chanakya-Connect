@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChanakyaConnect — Student Network</title>
+  <style>
+    :root {
+      --bg: #f3f5f8;
+      --surface: #ffffff;
+      --primary: #1a56db;
+      --primary-dark: #1342b0;
+      --accent: #0ea5e9;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --success: #059669;
+      --danger: #dc2626;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      cursor: pointer;
+    }
+    .brand span { color: var(--text); font-weight: 600; }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 420px;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--bg);
+      font-size: 0.92rem;
+      outline: none;
+    }
+    .search-wrap input:focus { border-color: var(--primary); background: #fff; }
+    .search-dropdown {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      display: none;
+      max-height: 320px;
+      overflow-y: auto;
+      z-index: 60;
+    }
+    .search-item {
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .search-item:hover { background: #f9fafb; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .btn:hover { background: #f9fafb; }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-danger { color: var(--danger); border-color: #fecaca; }
+    .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+    .container {
+      max-width: 1120px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 820px) {
+      .container { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .card h3 { font-size: 1rem; margin-bottom: 10px; }
+    .muted { color: var(--muted); font-size: 0.86rem; }
+    .pill {
+      display: inline-block;
+      background: #eff6ff;
+      color: var(--primary);
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin: 2px 4px 2px 0;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+    .tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+    }
+    .auth-box {
+      max-width: 440px;
+      margin: 60px auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+    .post-img {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 10px 0;
+      border: 1px solid var(--border);
+    }
+    .comment-node {
+      border-left: 2px solid var(--border);
+      padding-left: 12px;
+      margin-top: 8px;
+      font-size: 0.88rem;
+    }
+    .row-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      background: var(--danger);
+      color: #fff;
+      border-radius: 999px;
+      padding: 1px 7px;
+      font-size: 0.74rem;
+      margin-left: 4px;
+    }
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      background: #eff6ff;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .avatar-sm { width: 36px; height: 36px; font-size: 0.8rem; }
+    .avatar-lg { width: 72px; height: 72px; font-size: 1.35rem; }
+    .hidden { display: none !important; }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #111827;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      z-index: 100;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header id="topbar" class="hidden">
+    <div class="brand" onclick="switchTab('feed')">Chanakya<span>Connect</span></div>
+    <div class="search-wrap">
+      <input id="searchInput" type="text" placeholder="Search students by name or username (Trie)..." oninput="onSearchInput(this.value)" />
+      <div id="searchDropdown" class="search-dropdown"></div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-sm" onclick="goBack()">← Back</button>
+      <button class="btn btn-sm" onclick="switchTab('notifications')">
+        Alerts <span id="notifBadge" class="badge hidden">0</span>
+      </button>
+      <button class="btn btn-sm btn-danger" onclick="logout()">Log Out</button>
+    </div>
+  </header>
+
+  <!-- AUTH VIEW -->
+  <div id="authView" class="auth-box">
+    <h2 style="margin-bottom:6px;color:var(--primary);">ChanakyaConnect</h2>
+    <p class="muted" style="margin-bottom:18px;">Chanakya University Student Project &amp; Idea Network</p>
+    <div class="tabs">
+      <button id="loginTabBtn" class="tab active" onclick="toggleAuthMode('login')">Log In</button>
+      <button id="signupTabBtn" class="tab" onclick="toggleAuthMode('signup')">Sign Up</button>
+    </div>
+
+    <div id="loginForm">
+      <input id="loginUser" placeholder="Username (e.g., shrish)" />
+      <input id="loginPass" type="password" placeholder="Password" />
+      <button class="btn btn-primary" style="width:100%" onclick="doLogin()">Log In</button>
+      <p class="muted" style="margin-top:12px;">Demo accounts (password: <code>pass1234</code>): <code>shrish</code>, <code>ananya</code>, <code>rohan</code>, <code>meera</code></p>
+    </div>
+
+    <div id="signupForm" class="hidden">
+      <input id="suUser" placeholder="Unique Username" />
+      <input id="suPass" type="password" placeholder="Password (min 4 chars)" />
+      <input id="suName" placeholder="Full Name" />
+      <input id="suProg" placeholder="Programme (e.g., B.Tech CSAI)" />
+      <input id="suYear" type="number" min="1" max="5" placeholder="Year (e.g., 2)" />
+      <input id="suBio" placeholder="Short Bio" />
+      <input id="suSkills" placeholder="Skills (comma-separated, e.g., Python, DSA, ML)" />
+      <button class="btn btn-primary" style="width:100%" onclick="doSignup()">Create Account</button>
+    </div>
+  </div>
+
+  <!-- MAIN APP VIEW -->
+  <div id="appView" class="container hidden">
+    <aside>
+      <div class="card" id="myProfileCard"></div>
+      <div class="card">
+        <div class="row-between">
+          <h3>People You May Know</h3>
+          <span class="muted">Jaccard</span>
+        </div>
+        <div id="suggestionsBox" class="muted">Loading...</div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="tabs">
+        <button class="tab active" data-tab="feed" onclick="switchTab('feed')">Home Feed</button>
+        <button class="tab" data-tab="trending" onclick="switchTab('trending')">Trending</button>
+        <button class="tab" data-tab="network" onclick="switchTab('network')">Network &amp; Graph</button>
+        <button class="tab" data-tab="jobs" onclick="switchTab('jobs')">Jobs</button>
+        <button class="tab" data-tab="messages" onclick="switchTab('messages')">Messages</button>
+        <button class="tab" data-tab="myposts" onclick="switchTab('myposts')">My Posts</button>
+        <button class="tab" data-tab="profile" onclick="switchTab('profile')">Profile View</button>
+      </div>
+
+      <!-- FEED / TRENDING / MY POSTS -->
+      <section id="feedSection">
+        <div class="card">
+          <div class="row-between" style="margin-bottom:8px;">
+            <h3>Share a Project or Technical Idea</h3>
+            <button class="btn btn-sm" onclick="undoDelete()">Undo Last Delete</button>
+          </div>
+          <textarea id="postContent" rows="3" placeholder="What are you building at Chanakya University?"></textarea>
+          <input id="postMediaFile" type="file" accept="image/*,video/*" />
+          <input id="postImage" placeholder="Or paste Image / Video URL (https://...)" />
+          <button class="btn btn-primary" onclick="createPost()">Publish Post</button>
+        </div>
+        <div id="postsList"></div>
+      </section>
+
+      <!-- NETWORK & GRAPH -->
+      <section id="networkSection" class="hidden">
+        <div class="card">
+          <h3>Degree of Connection &amp; Shortest Chain (BFS)</h3>
+          <div style="display:flex;gap:8px;">
+            <input id="pathTarget" placeholder="Enter student username (e.g., meera)" style="margin-bottom:0;" />
+            <button class="btn btn-primary" onclick="findPath()">Find Path</button>
+          </div>
+          <div id="pathResult" style="margin-top:10px;" class="muted"></div>
+        </div>
+        <div class="card">
+          <h3>Pending Connection Requests (Queue)</h3>
+          <div id="pendingBox"></div>
+        </div>
+        <div class="card">
+          <h3>Your Connections (Adjacency List)</h3>
+          <div id="connectionsBox"></div>
+        </div>
+        <div class="card">
+          <h3>Student Communities (Connected Components)</h3>
+          <div id="communitiesBox"></div>
+        </div>
+      </section>
+
+      <!-- JOBS BOARD -->
+      <section id="jobsSection" class="hidden">
+        <div class="card">
+          <h3>Post an Internship / Job / Research Role</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <input id="jobTitle" placeholder="Role Title (e.g., AI/ML Intern)" />
+            <input id="jobCompany" placeholder="Company or Lab (e.g., Chanakya AI Lab)" />
+            <input id="jobLocation" placeholder="Location (e.g., Bangalore)" />
+            <select id="jobType">
+              <option value="Internship">Internship</option>
+              <option value="Research">Research</option>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Part-Time">Part-Time</option>
+            </select>
+          </div>
+          <input id="jobSkills" placeholder="Required Skills (comma-separated, e.g., Python, DSA, PyTorch)" />
+          <textarea id="jobDesc" rows="2" placeholder="Role description..."></textarea>
+          <button class="btn btn-primary" onclick="postJob()">Post Job</button>
+        </div>
+        <div class="card">
+          <div class="row-between" style="margin-bottom:10px;">
+            <h3>Recommended Jobs (MaxHeap Skill Match)</h3>
+            <input id="jobSearch" placeholder="Filter by title or skill..." style="width:220px;margin-bottom:0;" oninput="loadJobs()" />
+          </div>
+          <div id="jobsList"></div>
+        </div>
+      </section>
+
+      <!-- DIRECT MESSAGES -->
+      <section id="messagesSection" class="hidden">
+        <div class="card" style="display:grid;grid-template-columns:240px 1fr;gap:16px;min-height:400px;">
+          <div style="border-right:1px solid var(--border);padding-right:12px;">
+            <h3>Chats</h3>
+            <div id="chatPeersList" class="muted">Loading...</div>
+          </div>
+          <div style="display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <h3 id="chatHeader">Select a student to message</h3>
+              <div id="chatMessagesBox" style="max-height:290px;overflow-y:auto;padding:8px 0;"></div>
+            </div>
+            <div id="chatComposer" class="hidden" style="display:flex;gap:8px;margin-top:10px;">
+              <input id="chatInput" placeholder="Write a message..." style="margin-bottom:0;" onkeydown="if(event.key==='Enter')sendDM()" />
+              <button class="btn btn-primary" onclick="sendDM()">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTIFICATIONS -->
+      <section id="notificationsSection" class="hidden">
+        <div class="card">
+          <div class="row-between" style="margin-bottom:10px;">
+            <h3>Notifications (FIFO Queue)</h3>
+            <button class="btn btn-sm" onclick="markAllRead()">Mark All Read</button>
+          </div>
+          <div id="notifList"></div>
+        </div>
+      </section>
+
+      <!-- VIEW OTHER / EDIT PROFILE -->
+      <section id="profileSection" class="hidden">
+        <div class="card" id="viewedProfileBox"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    let token = localStorage.getItem("cc_token") || "";
+    let currentUser = JSON.parse(localStorage.getItem("cc_user") || "null");
+    let currentTab = "feed";
+    let navHistory = [];
+
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.style.display = "block";
+      setTimeout(() => el.style.display = "none", 3000);
+    }
+
+    async function api(path, method = "GET", body = null) {
+      const headers = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = "Bearer " + token;
+      const res = await fetch(path, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : null,
+      });
+      const data = await res.json();
+      if (res.status === 401 && token) {
+        token = "";
+        currentUser = null;
+        localStorage.removeItem("cc_token");
+        localStorage.removeItem("cc_user");
+        document.getElementById("topbar").classList.add("hidden");
+        document.getElementById("appView").classList.add("hidden");
+        document.getElementById("authView").classList.remove("hidden");
+      }
+      if (!res.ok) throw new Error(data.detail || "Request failed");
+      return data;
+    }
+
+    function toggleAuthMode(mode) {
+      document.getElementById("loginForm").classList.toggle("hidden", mode !== "login");
+      document.getElementById("signupForm").classList.toggle("hidden", mode !== "signup");
+      document.getElementById("loginTabBtn").classList.toggle("active", mode === "login");
+      document.getElementById("signupTabBtn").classList.toggle("active", mode === "signup");
+    }
+
+    async function doLogin() {
+      try {
+        const data = await api("/api/auth/login", "POST", {
+          username: document.getElementById("loginUser").value,
+          password: document.getElementById("loginPass").value,
+        });
+        token = data.token;
+        currentUser = data.user;
+        localStorage.setItem("cc_token", token);
+        localStorage.setItem("cc_user", JSON.stringify(currentUser));
+    
+    let activeChatPeer = null;
+
+    async function endorseSkill(username, skill) {
+      try {
+        const res = await api(`/api/users/${username}/endorse`, "POST", { skill });
+        toast(res.message);
+        viewUserProfile(username);
+      } catch (e) { toast(e.message); }
+    }
+
+    async function loadJobs() {
+      try {
+        const q = (document.getElementById("jobSearch")?.value || "").trim();
+        const data = await api(`/api/jobs?q=${encodeURIComponent(q)}`);
+        const box = document.getElementById("jobsList");
+        if (!data.jobs.length) {
+          box.innerHTML = "<span class='muted'>No jobs posted yet.</span>";
+          return;
+        }
+        box.innerHTML = data.jobs.map(j => `
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div class="row-between">
+              <div>
+                <strong>${j.title}</strong> · <span>${j.company}</span>
+                <div class="muted">${j.location} · ${j.job_type} · Posted by @${j.posted_by}</div>
+              </div>
+              <div style="text-align:right;">
+                <span class="pill">${j.skill_match_pct}% skill match</span>
+                ${j.posted_by === currentUser.username ? `<span class="muted">Your Posting · ${j.applicant_count} applicant(s)</span> <button class="btn btn-sm btn-danger" onclick="deleteJob('${j.job_id}')">Delete</button>` : (j.has_applied ? `<span class="pill">Status: ${j.my_status || "pending"}</span>` : `<div style="margin-top:6px;"><input id="applyRes_${j.job_id}" type="file" accept=".pdf,.doc,.docx,image/*" style="width:170px;font-size:0.75rem;padding:3px;margin-bottom:4px;" /><br/><button class="btn btn-sm btn-primary" onclick="applyJob('${j.job_id}')">Apply (${j.applicant_count})</button></div>`)}
+              </div>
+            </div>
+            <p style="margin:6px 0;font-size:0.9rem;">${j.description}</p>
+            <div>${(j.required_skills || []).map(s => `<span class="pill">${s}</span>`).join("")}</div>
+            ${j.posted_by === currentUser.username && j.applicant_details && j.applicant_details.length ? `
+              <div style="margin-top:10px;padding:10px;background:#f9fafb;border-radius:8px;border:1px solid var(--border);">
+                <strong style="font-size:0.86rem;">Applicants:</strong>
+                ${j.applicant_details.map(a => `
+                  <div class="row-between" style="margin-top:6px;font-size:0.86rem;">
+                    <div>
+                      <strong style="cursor:pointer;color:var(--primary);" onclick="viewUserProfile('${a.username}')">${a.name}</strong> (@${a.username}) · ${a.programme} · <em>${a.status}</em>
+                      <div class="muted">${(a.skills || []).slice(0, 4).join(", ")}</div>
+                    </div>
+                    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                      <button class="btn btn-sm" onclick="viewUserProfile('${a.username}')">Preview Profile</button>
+                      ${a.resume_url ? `<a class="btn btn-sm" href="${a.resume_url}" target="_blank" style="text-decoration:none;">📄 View Resume</a>` : `<span class="muted">No resume</span>`}
+                      ${a.status === "pending" ? `
+                        <button class="btn btn-sm btn-primary" onclick="respondJob('${j.job_id}','${a.username}','accepted')">Accept</button>
+                        <button class="btn btn-sm btn-danger" onclick="respondJob('${j.job_id}','${a.username}','rejected')">Reject</button>
+                      ` : `<span class="pill">${a.status}</span>`}
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            ` : ""}
+          </div>
+        `).join("");
+      } catch (e) { toast(e.message); }
+    }
+
+    async function postJob() {
+      try {
+        const title = document.getElementById("jobTitle").value;
+        const company = document.getElementById("jobCompany").value;
+        const location = document.getElementById("jobLocation").value;
+        const job_type = document.getElementById("jobType").value;
+        const description = document.getElementById("jobDesc").value;
+        const required_skills = document.getElementById("jobSkills").value.split(",").map(s => s.trim()).filter(Boolean);
+        await api("/api/jobs", "POST", { title, company, location, job_type, description, required_skills });
+        document.getElementById("jobTitle").value = "";
+        document.getElementById("jobCompany").value = "";
+        document.getElementById("jobLocation").value = "";
+        document.getElementById("jobDesc").value = "";
+        document.getElementById("jobSkills").value = "";
+        toast("Job posted!");
+        loadJobs();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function respondJob(jobId, applicant, decision) {
+      try {
+        const res = await api(`/api/jobs/${jobId}/respond`, "POST", { applicant, decision });
+        toast(res.message);
+        loadJobs();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function deleteJob(jobId) {
+      try {
+        const res = await api(`/api/jobs/${jobId}`, "DELETE");
+        toast(res.message);
+        loadJobs();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function applyJob(jobId) {
+      try {
+        let resume_url = null;
+        const rInput = document.getElementById(`applyRes_${jobId}`);
+        if (rInput && rInput.files && rInput.files[0]) {
+          const rfile = rInput.files[0];
+          const rdata = await readFileAsDataURL(rfile);
+          const rup = await api("/api/upload-media", "POST", { filename: rfile.name, data_url: rdata });
+          resume_url = rup.url;
+        }
+        const res = await api(`/api/jobs/${jobId}/apply`, "POST", { resume_url });
+        toast(res.message);
+        loadJobs();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function loadMessagesTab() {
+      try {
+        const data = await api("/api/messages");
+        const peersMap = new Map();
+        data.conversations.forEach(c => peersMap.set(c.username, c));
+        data.connections.forEach(c => { if (!peersMap.has(c.username)) peersMap.set(c.username, c); });
+        const list = Array.from(peersMap.values());
+        document.getElementById("chatPeersList").innerHTML = list.map(u => `
+          <div style="padding:8px;cursor:pointer;border-bottom:1px solid var(--border);border-radius:6px;${activeChatPeer===u.username?'background:#eff6ff;':''}" onclick="openChatWith('${u.username}')">
+            <div style="display:flex;align-items:center;gap:8px;">
+              ${renderAvatar(u.profile_pic, u.name, "avatar-sm")}
+              <div>
+                <strong>${u.name}</strong>
+                <div class="muted">${u.last_message ? u.last_message.slice(0, 24) : "@" + u.username}</div>
+              </div>
+            </div>
+          </div>
+        `).join("") || "Connect with someone to start chatting!";
+        if (activeChatPeer) loadChatThread(activeChatPeer);
+      } catch (e) { toast(e.message); }
+    }
+
+    function openChatWith(username) {
+      activeChatPeer = username;
+      activateTabUI("messages", true);
+      loadMessagesTab();
+    }
+
+    async function loadChatThread(peer) {
+      try {
+        const data = await api(`/api/messages/${peer}`);
+        document.getElementById("chatHeader").textContent = `Chat with ${data.peer?.name || peer} (@${peer})`;
+        document.getElementById("chatComposer").classList.remove("hidden");
+        document.getElementById("chatMessagesBox").innerHTML = data.messages.map(m => {
+          const isMe = m.sender === currentUser.username;
+          return `<div style="margin:6px 0;text-align:${isMe ? 'right' : 'left'};">
+            <span style="display:inline-block;padding:7px 12px;border-radius:12px;background:${isMe ? 'var(--primary)' : '#eef2f7'};color:${isMe ? '#fff' : 'var(--text)'};max-width:75%;font-size:0.9rem;">
+              ${m.text}
+            </span>
+          </div>`;
+        }).join("") || "<span class='muted'>No messages yet. Say hi!</span>";
+      } catch (e) { toast(e.message); }
+    }
+
+    async function sendDM() {
+      if (!activeChatPeer) return;
+      const input = document.getElementById("chatInput");
+      const text = input.value.trim();
+      if (!text) return;
+      try {
+        await api(`/api/messages/${activeChatPeer}`, "POST", { text });
+        input.value = "";
+        loadChatThread(activeChatPeer);
+      } catch (e) { toast(e.message); }
+    }
+
+    setInterval(() => {
+      if (!token || !currentUser) return;
+      loadNotifications();
+      if (currentTab === "messages" && activeChatPeer) loadChatThread(activeChatPeer);
+    }, 5000);
+
+    initApp();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function doSignup() {
+      try {
+        const skills = document.getElementById("suSkills").value.split(",").map(s => s.trim()).filter(Boolean);
+        await api("/api/auth/signup", "POST", {
+          username: document.getElementById("suUser").value,
+          password: document.getElementById("suPass").value,
+          name: document.getElementById("suName").value,
+          programme: document.getElementById("suProg").value,
+          year: parseInt(document.getElementById("suYear").value || "1", 10),
+          bio: document.getElementById("suBio").value,
+          skills,
+        });
+        toast("Account created! Please log in.");
+        toggleAuthMode("login");
+      } catch (e) { toast(e.message); }
+    }
+
+    async function logout() {
+      try { await api("/api/auth/logout", "POST"); } catch {}
+      token = "";
+      currentUser = null;
+      localStorage.removeItem("cc_token");
+      localStorage.removeItem("cc_user");
+      document.getElementById("topbar").classList.add("hidden");
+      document.getElementById("appView").classList.add("hidden");
+      document.getElementById("authView").classList.remove("hidden");
+    }
+
+    function initApp() {
+      if (!token || !currentUser) return;
+      document.getElementById("authView").classList.add("hidden");
+      document.getElementById("topbar").classList.remove("hidden");
+      document.getElementById("appView").classList.remove("hidden");
+      renderMyProfile();
+      loadSuggestions();
+      loadNotifications();
+      switchTab("feed", false);
+    }
+
+    function renderAvatar(picUrl, name, sizeClass = "") {
+      if (picUrl) {
+        return `<img class="avatar ${sizeClass}" src="${picUrl}" alt="${name || "User"}" />`;
+      }
+      const initials = (name || "?").split(" ").filter(Boolean).map(w => w[0]).slice(0, 2).join("").toUpperCase();
+      return `<div class="avatar ${sizeClass}">${initials || "?"}</div>`;
+    }
+
+    function renderMyProfile() {
+      const u = currentUser;
+      const skillsHtml = (u.skills || []).map(s => `<span class="pill">${s}</span>`).join("");
+      document.getElementById("myProfileCard").innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+          ${renderAvatar(u.profile_pic, u.name)}
+          <div>
+            <h3 style="margin-bottom:2px;">${u.name}</h3>
+            <p class="muted">@${u.username} · ${u.programme} (Year ${u.year})</p>
+          </div>
+        </div>
+        <p style="margin:8px 0;font-size:0.9rem;">${u.bio || "No bio yet."}</p>
+        <div>${skillsHtml}</div>
+        <button class="btn btn-sm" style="margin-top:10px;" onclick="viewUserProfile('${u.username}')">View / Edit Profile</button>
+      `;
+    }
+
+    function activateTabUI(tab, pushStack = true) {
+      if (pushStack && currentTab !== tab) navHistory.push(currentTab);
+      currentTab = tab;
+      document.querySelectorAll(".tabs .tab").forEach(b => {
+        b.classList.toggle("active", b.dataset.tab === tab);
+      });
+      document.getElementById("feedSection").classList.toggle("hidden", !["feed", "trending", "myposts"].includes(tab));
+      document.getElementById("networkSection").classList.toggle("hidden", tab !== "network");
+      document.getElementById("jobsSection").classList.toggle("hidden", tab !== "jobs");
+      document.getElementById("messagesSection").classList.toggle("hidden", tab !== "messages");
+      document.getElementById("notificationsSection").classList.toggle("hidden", tab !== "notifications");
+      document.getElementById("profileSection").classList.toggle("hidden", tab !== "profile");
+    }
+
+    function switchTab(tab, pushStack = true) {
+      activateTabUI(tab, pushStack);
+      if (["feed", "trending", "myposts"].includes(tab)) loadFeed(tab);
+      if (tab === "network") loadNetwork();
+      if (tab === "jobs") loadJobs();
+      if (tab === "messages") loadMessagesTab();
+      if (tab === "notifications") loadNotifications();
+      if (tab === "profile") viewUserProfile(currentUser.username);
+    }
+
+    function goBack() {
+      if (navHistory.length === 0) return toast("Navigation stack is empty");
+      const prev = navHistory.pop();
+      switchTab(prev, false);
+    }
+
+    function renderCommentTree(comments, postId) {
+      if (!comments || !comments.length) return "";
+      return comments.map(c => `
+        <div class="comment-node">
+          <div><strong>@${c.author}</strong>: ${c.text}
+            <a href="#" class="muted" style="margin-left:6px;" onclick="replyToComment('${postId}','${c.comment_id}');return false;">Reply</a>
+          </div>
+          ${renderCommentTree(c.replies, postId)}
+        </div>
+      `).join("");
+    }
+
+    async function loadFeed(mode = "feed") {
+      try {
+        const data = await api("/api/feed");
+        const list = mode === "feed" ? data.feed : mode === "trending" ? data.trending : data.my_posts;
+        const container = document.getElementById("postsList");
+        if (!list.length) {
+          container.innerHTML = `<div class="card muted">No posts here yet. Connect with students or publish a post!</div>`;
+          return;
+        }
+        container.innerHTML = list.map(p => `
+          <div class="card">
+            <div class="row-between">
+              <div style="display:flex;align-items:center;gap:10px;">
+                ${renderAvatar(p.author_profile_pic, p.author_name, "avatar-sm")}
+                <div>
+                  <strong style="cursor:pointer;color:var(--primary);" onclick="viewUserProfile('${p.author}')">${p.author_name}</strong>
+                  <div class="muted">@${p.author} · ${p.author_programme}</div>
+                </div>
+              </div>
+              <div class="muted">
+                ${p.trending_score ? `<span class="pill">Trend ${p.trending_score}</span>` : ""}
+                ${p.author === currentUser.username ? `<button class="btn btn-sm btn-danger" onclick="deletePost('${p.post_id}')">Delete</button>` : ""}
+              </div>
+            </div>
+            <p style="margin:10px 0;">${p.content}</p>
+            ${p.image_url ? (p.media_type === "video" || /\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(p.image_url) ? `<video class="post-img" controls src="${p.image_url}"></video>` : `<img class="post-img" src="${p.image_url}" alt="Post image" />`) : ""}
+            <div class="row-between" style="margin-top:8px;">
+              <div>
+                <button class="btn btn-sm" onclick="toggleLike('${p.post_id}')">👍 Like (${p.like_count})</button>
+                <span class="muted" style="margin-left:8px;">💬 ${p.comment_count} comments</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:10px;">
+              <input id="c_${p.post_id}" placeholder="Write a comment..." style="margin-bottom:0;" />
+              <button class="btn btn-sm btn-primary" onclick="addComment('${p.post_id}')">Comment</button>
+            </div>
+            <div>${renderCommentTree(p.comments, p.post_id)}</div>
+          </div>
+        `).join("");
+      } catch (e) { toast(e.message); }
+    }
+
+    function readFileAsDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error("Failed to read file"));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function createPost() {
+      try {
+        const content = document.getElementById("postContent").value;
+        let image_url = document.getElementById("postImage").value.trim() || null;
+        let media_type = null;
+        const fileInput = document.getElementById("postMediaFile");
+        if (fileInput.files && fileInput.files[0]) {
+          const file = fileInput.files[0];
+          const data_url = await readFileAsDataURL(file);
+          const up = await api("/api/upload-media", "POST", { filename: file.name, data_url });
+          image_url = up.url;
+          media_type = up.media_type;
+        }
+        await api("/api/posts", "POST", { content, image_url, media_type });
+        document.getElementById("postContent").value = "";
+        document.getElementById("postImage").value = "";
+        fileInput.value = "";
+        toast("Post published!");
+        loadFeed(currentTab === "myposts" ? "myposts" : "feed");
+      } catch (e) { toast(e.message); }
+    }
+
+    async function deletePost(id) {
+      try {
+        const res = await api(`/api/posts/${id}`, "DELETE");
+        toast(res.message);
+        loadFeed(currentTab);
+      } catch (e) { toast(e.message); }
+    }
+
+    async function undoDelete() {
+      try {
+        const res = await api("/api/posts/undo-delete", "POST");
+        toast(res.message);
+        loadFeed(currentTab);
+      } catch (e) { toast(e.message); }
+    }
+
+    async function toggleLike(id) {
+      try {
+        await api(`/api/posts/${id}/like`, "POST");
+        loadFeed(currentTab);
+      } catch (e) { toast(e.message); }
+    }
+
+    async function addComment(postId, parentId = null) {
+      const input = document.getElementById(`c_${postId}`);
+      const text = parentId ? prompt("Write your reply:") : input.value;
+      if (!text || !text.trim()) return;
+      try {
+        await api(`/api/posts/${postId}/comments`, "POST", { text, parent_comment_id: parentId });
+        if (!parentId) input.value = "";
+        loadFeed(currentTab);
+      } catch (e) { toast(e.message); }
+    }
+
+    function replyToComment(postId, parentId) {
+      addComment(postId, parentId);
+    }
+
+    async function loadSuggestions() {
+      try {
+        const data = await api("/api/connections");
+        const box = document.getElementById("suggestionsBox");
+        if (!data.suggestions.length) {
+          box.innerHTML = "No suggestions yet.";
+          return;
+        }
+        box.innerHTML = data.suggestions.map(s => `
+          <div style="padding:8px 0;border-bottom:1px solid var(--border);">
+            <div class="row-between">
+              <strong style="cursor:pointer" onclick="viewUserProfile('${s.username}')">${s.name}</strong>
+              <button class="btn btn-sm btn-primary" onclick="sendReq('${s.username}')">Connect</button>
+            </div>
+            <div class="muted">@${s.username} · ${s.mutual_count} mutuals (Jaccard: ${s.jaccard_score})</div>
+          </div>
+        `).join("");
+      } catch {}
+    }
+
+    async function loadNetwork() {
+      try {
+        const data = await api("/api/connections");
+        const pendingHtml = [
+          ...data.pending.incoming.map(u => `
+            <div class="row-between" style="padding:6px 0;">
+              <span><strong>${u.name}</strong> (@${u.username}) wants to connect</span>
+              <div>
+                <button class="btn btn-sm btn-primary" onclick="acceptReq('${u.username}')">Accept</button>
+                <button class="btn btn-sm btn-danger" onclick="rejectReq('${u.username}')">Reject</button>
+              </div>
+            </div>
+          `),
+          ...data.pending.outgoing.map(u => `
+            <div class="row-between" style="padding:6px 0;">
+              <span>Request sent to <strong>${u.name}</strong> (@${u.username})</span>
+              <button class="btn btn-sm" onclick="cancelReq('${u.username}')">Cancel</button>
+            </div>
+          `),
+        ].join("") || "<span class='muted'>No pending requests.</span>";
+        document.getElementById("pendingBox").innerHTML = pendingHtml;
+
+        document.getElementById("connectionsBox").innerHTML = data.connections.map(c => `
+          <div class="row-between" style="padding:6px 0;border-bottom:1px solid var(--border);">
+            <span style="cursor:pointer;" onclick="viewUserProfile('${c.username}')"><strong>${c.name}</strong> (@${c.username}) · ${c.programme}</span>
+            <button class="btn btn-sm btn-danger" onclick="removeConn('${c.username}')">Remove</button>
+          </div>
+        `).join("") || "<span class='muted'>No connections yet.</span>";
+
+        document.getElementById("communitiesBox").innerHTML = data.communities.map((comm, i) => `
+          <div style="margin-bottom:8px;">
+            <strong>Community ${i + 1} (${comm.length} students):</strong>
+            ${comm.map(m => `<span class="pill" style="cursor:pointer;" onclick="viewUserProfile('${m.username}')">@${m.username}</span>`).join("")}
+          </div>
+        `).join("") || "<span class='muted'>No communities formed yet.</span>";
+      } catch (e) { toast(e.message); }
+    }
+
+    async function sendReq(u) { await api(`/api/connections/request/${u}`, "POST"); toast("Request sent!"); loadSuggestions(); loadNetwork(); }
+    async function acceptReq(u) { await api(`/api/connections/accept/${u}`, "POST"); toast("Connected!"); loadNetwork(); loadSuggestions(); }
+    async function rejectReq(u) { await api(`/api/connections/reject/${u}`, "POST"); toast("Rejected."); loadNetwork(); }
+    async function cancelReq(u) { await api(`/api/connections/cancel/${u}`, "POST"); toast("Cancelled."); loadNetwork(); }
+    async function removeConn(u) { await api(`/api/connections/${u}`, "DELETE"); toast("Removed connection."); loadNetwork(); loadSuggestions(); }
+
+    async function findPath() {
+      const target = document.getElementById("pathTarget").value.trim();
+      if (!target) return;
+      try {
+        const res = await api(`/api/connections/path/${target}`);
+        const el = document.getElementById("pathResult");
+        if (res.degree === null) {
+          el.textContent = `No connection path found to @${target}.`;
+        } else {
+          el.innerHTML = `<strong>Degree:</strong> ${res.degree} | <strong>Shortest Chain:</strong> ${res.path.map(u => "@" + u).join(" → ")} | <strong>Mutuals:</strong> ${res.mutuals.length}`;
+        }
+      } catch (e) { toast(e.message); }
+    }
+
+    async function onSearchInput(val) {
+      const dd = document.getElementById("searchDropdown");
+      if (!val.trim()) { dd.style.display = "none"; return; }
+      try {
+        const data = await api(`/api/search?q=${encodeURIComponent(val)}`);
+        if (!data.results.length) {
+          dd.innerHTML = `<div class="search-item muted">No students match "${val}"</div>`;
+        } else {
+          dd.innerHTML = data.results.map(u => `
+            <div class="search-item" onclick="viewUserProfile('${u.username}'); document.getElementById('searchDropdown').style.display='none';">
+              <div><strong>${u.name}</strong> <span class="muted">@${u.username}</span></div>
+              <span class="muted">${u.programme}</span>
+            </div>
+          `).join("");
+        }
+        dd.style.display = "block";
+      } catch {}
+    }
+
+    async function viewUserProfile(username) {
+      activateTabUI("profile", true);
+      try {
+        const data = await api(`/api/users/${username}`);
+        const p = data.profile;
+        const isSelf = p.username === currentUser.username;
+        let actionBtn = "";
+        if (!isSelf) {
+          if (data.is_connected) actionBtn = `<button class="btn btn-sm btn-danger" onclick="removeConn('${p.username}').then(()=>viewUserProfile('${p.username}'))">Remove Connection</button>`;
+          else if (data.has_outgoing_request) actionBtn = `<button class="btn btn-sm" onclick="cancelReq('${p.username}').then(()=>viewUserProfile('${p.username}'))">Cancel Request</button>`;
+          else if (data.has_incoming_request) actionBtn = `<button class="btn btn-sm btn-primary" onclick="acceptReq('${p.username}').then(()=>viewUserProfile('${p.username}'))">Accept Request</button>`;
+          else actionBtn = `<button class="btn btn-sm btn-primary" onclick="sendReq('${p.username}').then(()=>viewUserProfile('${p.username}'))">Connect</button>`;
+        }
+        document.getElementById("viewedProfileBox").innerHTML = `
+          <div class="row-between">
+            <div style="display:flex;align-items:center;gap:14px;">
+              ${renderAvatar(p.profile_pic, p.name, "avatar-lg")}
+              <div>
+                <h2>${p.name}</h2>
+                <p class="muted">@${p.username} · ${p.programme} · Year ${p.year}</p>
+              </div>
+            </div>
+            ${actionBtn}
+          </div>
+          <p style="margin:10px 0;">${p.bio || ""}</p>
+          ${p.resume_url ? `<p style="margin-bottom:8px;"><a class="btn btn-sm" href="${p.resume_url}" target="_blank">📄 View Resume</a></p>` : ""}
+          <div>${(p.skills || []).map(s => {
+            const count = (p.endorsements && p.endorsements[s]) ? p.endorsements[s].length : 0;
+            const endorseBtn = !isSelf ? ` <a href="#" onclick="endorseSkill('${p.username}','${s}');return false;" style="color:var(--primary);text-decoration:none;margin-left:4px;">+1</a>` : "";
+            return `<span class="pill">${s}${count ? " (" + count + ")" : ""}${endorseBtn}</span>`;
+          }).join("")}</div>
+          ${!isSelf ? `<button class="btn btn-sm" style="margin-top:8px;" onclick="openChatWith('${p.username}')">Message @${p.username}</button>` : ""}
+          ${!isSelf ? `<p class="muted" style="margin-top:10px;">Degree: ${data.degree ?? "Unconnected"} ${data.shortest_chain.length ? "(" + data.shortest_chain.join(" → ") + ")" : ""} · Mutuals: ${data.mutual_connections.length}</p>` : ""}
+          ${isSelf ? `
+            <hr style="margin:16px 0;border:none;border-top:1px solid var(--border);" />
+            <h4 style="margin-bottom:8px;">Edit Profile</h4>
+            <label class="muted" style="display:block;margin-bottom:4px;">Profile Picture</label>
+            <input id="editProfilePicFile" type="file" accept="image/*" />
+            <input id="editProfilePicUrl" value="${p.profile_pic || ""}" placeholder="Or paste Profile Picture URL" />
+            <label class="muted" style="display:block;margin-bottom:4px;">Resume (PDF / DOCX / Image)</label>
+            <input id="editResumeFile" type="file" accept=".pdf,.doc,.docx,image/*" />
+            <input id="editResumeUrl" value="${p.resume_url || ""}" placeholder="Or paste Resume URL" />
+            <input id="editBio" value="${p.bio || ""}" placeholder="Bio" />
+            <input id="editSkills" value="${(p.skills || []).join(", ")}" placeholder="Skills (comma-separated)" />
+            <button class="btn btn-primary btn-sm" onclick="saveProfile()">Save Changes</button>
+          ` : ""}
+        `;
+      } catch (e) { toast(e.message); }
+    }
+
+    async function saveProfile() {
+      try {
+        const bio = document.getElementById("editBio").value;
+        const skills = document.getElementById("editSkills").value.split(",").map(s => s.trim()).filter(Boolean);
+        let profile_pic = document.getElementById("editProfilePicUrl").value.trim();
+        const picInput = document.getElementById("editProfilePicFile");
+        if (picInput && picInput.files && picInput.files[0]) {
+          const file = picInput.files[0];
+          const data_url = await readFileAsDataURL(file);
+          const up = await api("/api/upload-media", "POST", { filename: file.name, data_url });
+          profile_pic = up.url;
+        }
+        let resume_url = document.getElementById("editResumeUrl").value.trim();
+        const resInput = document.getElementById("editResumeFile");
+        if (resInput && resInput.files && resInput.files[0]) {
+          const rfile = resInput.files[0];
+          const rdata = await readFileAsDataURL(rfile);
+          const rup = await api("/api/upload-media", "POST", { filename: rfile.name, data_url: rdata });
+          resume_url = rup.url;
+        }
+        const res = await api("/api/profile", "PUT", { bio, skills, profile_pic, resume_url });
+        currentUser = res.user;
+        localStorage.setItem("cc_user", JSON.stringify(currentUser));
+        renderMyProfile();
+        viewUserProfile(currentUser.username);
+        toast("Profile updated!");
+      } catch (e) { toast(e.message); }
+    }
+
+    async function loadNotifications() {
+      try {
+        const data = await api("/api/notifications");
+        const unread = data.notifications.filter(n => !n.is_read).length;
+        const badge = document.getElementById("notifBadge");
+        badge.textContent = unread;
+        badge.classList.toggle("hidden", unread === 0);
+        document.getElementById("notifList").innerHTML = data.notifications.map(n => `
+          <div style="padding:8px 0;border-bottom:1px solid var(--border);${n.is_read ? 'opacity:0.65;' : 'font-weight:600;'}">
+            ${n.message}
+          </div>
+        `).join("") || "<span class='muted'>No notifications.</span>";
+      } catch {}
+    }
+
+    async function markAllRead() {
+      await api("/api/notifications/read-all", "POST");
+      loadNotifications();
+    }
+
+
+    let activeChatPeer = null;
+
+    async function endorseSkill(username, skill) {
+      try {
+        const res = await api(`/api/users/${username}/endorse`, "POST", { skill });
+        toast(res.message);
+        viewUserProfile(username);
+      } catch (e) { toast(e.message); }
+    }
+
+    async function loadJobs() {
+      try {
+        const q = (document.getElementById("jobSearch")?.value || "").trim();
+        const data = await api(`/api/jobs?q=${encodeURIComponent(q)}`);
+        const box = document.getElementById("jobsList");
+        if (!data.jobs.length) {
+          box.innerHTML = "<span class='muted'>No jobs posted yet.</span>";
+          return;
+        }
+        box.innerHTML = data.jobs.map(j => `
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div class="row-between">
+              <div>
+                <strong>${j.title}</strong> · <span>${j.company}</span>
+                <div class="muted">${j.location} · ${j.job_type} · Posted by @${j.posted_by}</div>
+              </div>
+              <div style="text-align:right;">
+                <span class="pill">${j.skill_match_pct}% skill match</span>
+                ${j.posted_by === currentUser.username ? `<span class="muted">Your Posting · ${j.applicant_count} applicant(s)</span> <button class="btn btn-sm btn-danger" onclick="deleteJob('${j.job_id}')">Delete</button>` : (j.has_applied ? `<span class="pill">Status: ${j.my_status || "pending"}</span>` : `<div style="margin-top:6px;"><input id="applyRes_${j.job_id}" type="file" accept=".pdf,.doc,.docx,image/*" style="width:170px;font-size:0.75rem;padding:3px;margin-bottom:4px;" /><br/><button class="btn btn-sm btn-primary" onclick="applyJob('${j.job_id}')">Apply (${j.applicant_count})</button></div>`)}
+              </div>
+            </div>
+            <p style="margin:6px 0;font-size:0.9rem;">${j.description}</p>
+            <div>${(j.required_skills || []).map(s => `<span class="pill">${s}</span>`).join("")}</div>
+            ${j.posted_by === currentUser.username && j.applicant_details && j.applicant_details.length ? `
+              <div style="margin-top:10px;padding:10px;background:#f9fafb;border-radius:8px;border:1px solid var(--border);">
+                <strong style="font-size:0.86rem;">Applicants:</strong>
+                ${j.applicant_details.map(a => `
+                  <div class="row-between" style="margin-top:6px;font-size:0.86rem;">
+                    <div>
+                      <strong style="cursor:pointer;color:var(--primary);" onclick="viewUserProfile('${a.username}')">${a.name}</strong> (@${a.username}) · ${a.programme} · <em>${a.status}</em>
+                      <div class="muted">${(a.skills || []).slice(0, 4).join(", ")}</div>
+                    </div>
+                    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                      <button class="btn btn-sm" onclick="viewUserProfile('${a.username}')">Preview Profile</button>
+                      ${a.resume_url ? `<a class="btn btn-sm" href="${a.resume_url}" target="_blank" style="text-decoration:none;">📄 View Resume</a>` : `<span class="muted">No resume</span>`}
+                      ${a.status === "pending" ? `
+                        <button class="btn btn-sm btn-primary" onclick="respondJob('${j.job_id}','${a.username}','accepted')">Accept</button>
+                        <button class="btn btn-sm btn-danger" onclick="respondJob('${j.job_id}','${a.username}','rejected')">Reject</button>
+                      ` : `<span class="pill">${a.status}</span>`}
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            ` : ""}
+          </div>
+        `).join("");
+      } catch (e) { toast(e.message); }
+    }
+
+    async function postJob() {
+      try {
+        const title = document.getElementById("jobTitle").value;
+        const company = document.getElementById("jobCompany").value;
+        const location = document.getElementById("jobLocation").value;
+        const job_type = document.getElementById("jobType").value;
+        const description = document.getElementById("jobDesc").value;
+        const required_skills = document.getElementById("jobSkills").value.split(",").map(s => s.trim()).filter(Boolean);
+        await api("/api/jobs", "POST", { title, company, location, job_type, description, required_skills });
+        document.getElementById("jobTitle").value = "";
+        document.getElementById("jobCompany").value = "";
+        document.getElementById("jobLocation").value = "";
+        document.getElementById("jobDesc").value = "";
+        document.getElementById("jobSkills").value = "";
+        toast("Job posted!");
+        loadJobs();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function respondJob(jobId, applicant, decision) {
+      try {
+        const res = await api(`/api/jobs/${jobId}/respond`, "POST", { applicant, decision });
+        toast(res.message);
+        loadJobs();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function deleteJob(jobId) {
+      try {
+        const res = await api(`/api/jobs/${jobId}`, "DELETE");
+        toast(res.message);
+        loadJobs();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function applyJob(jobId) {
+      try {
+        let resume_url = null;
+        const rInput = document.getElementById(`applyRes_${jobId}`);
+        if (rInput && rInput.files && rInput.files[0]) {
+          const rfile = rInput.files[0];
+          const rdata = await readFileAsDataURL(rfile);
+          const rup = await api("/api/upload-media", "POST", { filename: rfile.name, data_url: rdata });
+          resume_url = rup.url;
+        }
+        const res = await api(`/api/jobs/${jobId}/apply`, "POST", { resume_url });
+        toast(res.message);
+        loadJobs();
+      } catch (e) { toast(e.message); }
+    }
+
+    async function loadMessagesTab() {
+      try {
+        const data = await api("/api/messages");
+        const peersMap = new Map();
+        data.conversations.forEach(c => peersMap.set(c.username, c));
+        data.connections.forEach(c => { if (!peersMap.has(c.username)) peersMap.set(c.username, c); });
+        const list = Array.from(peersMap.values());
+        document.getElementById("chatPeersList").innerHTML = list.map(u => `
+          <div style="padding:8px;cursor:pointer;border-bottom:1px solid var(--border);border-radius:6px;${activeChatPeer===u.username?'background:#eff6ff;':''}" onclick="openChatWith('${u.username}')">
+            <div style="display:flex;align-items:center;gap:8px;">
+              ${renderAvatar(u.profile_pic, u.name, "avatar-sm")}
+              <div>
+                <strong>${u.name}</strong>
+                <div class="muted">${u.last_message ? u.last_message.slice(0, 24) : "@" + u.username}</div>
+              </div>
+            </div>
+          </div>
+        `).join("") || "Connect with someone to start chatting!";
+        if (activeChatPeer) loadChatThread(activeChatPeer);
+      } catch (e) { toast(e.message); }
+    }
+
+    function openChatWith(username) {
+      activeChatPeer = username;
+      activateTabUI("messages", true);
+      loadMessagesTab();
+    }
+
+    async function loadChatThread(peer) {
+      try {
+        const data = await api(`/api/messages/${peer}`);
+        document.getElementById("chatHeader").textContent = `Chat with ${data.peer?.name || peer} (@${peer})`;
+        document.getElementById("chatComposer").classList.remove("hidden");
+        document.getElementById("chatMessagesBox").innerHTML = data.messages.map(m => {
+          const isMe = m.sender === currentUser.username;
+          return `<div style="margin:6px 0;text-align:${isMe ? 'right' : 'left'};">
+            <span style="display:inline-block;padding:7px 12px;border-radius:12px;background:${isMe ? 'var(--primary)' : '#eef2f7'};color:${isMe ? '#fff' : 'var(--text)'};max-width:75%;font-size:0.9rem;">
+              ${m.text}
+            </span>
+          </div>`;
+        }).join("") || "<span class='muted'>No messages yet. Say hi!</span>";
+      } catch (e) { toast(e.message); }
+    }
+
+    async function sendDM() {
+      if (!activeChatPeer) return;
+      const input = document.getElementById("chatInput");
+      const text = input.value.trim();
+      if (!text) return;
+      try {
+        await api(`/api/messages/${activeChatPeer}`, "POST", { text });
+        input.value = "";
+        loadChatThread(activeChatPeer);
+      } catch (e) { toast(e.message); }
+    }
+
+    setInterval(() => {
+      if (!token || !currentUser) return;
+      loadNotifications();
+      if (currentTab === "messages" && activeChatPeer) loadChatThread(activeChatPeer);
+    }, 5000);
+
+    initApp();
+  </script>
+</body>
+</html>
