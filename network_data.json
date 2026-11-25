@@ -1,0 +1,507 @@
+{
+  "users": [
+    {
+      "username": "kavya",
+      "password_hash": "b9d1554b11b253c37a17ae7d0b846d4422ecf8a69c39e11b24db28d998a059ff",
+      "password_salt": "7b62d7a0d8994d45789bd4b87c256cbb",
+      "name": "Kavya Sharma",
+      "programme": "B.Tech EECS",
+      "year": 1,
+      "bio": "Exploring competitive programming and web dev.",
+      "skills": [
+        "Python",
+        "JavaScript",
+        "HTML/CSS"
+      ],
+      "profile_pic": null,
+      "resume_url": null,
+      "endorsements": {},
+      "created_at": 1795624388.9581778
+    },
+    {
+      "username": "meera",
+      "password_hash": "691d7c855f4f1115e900ceaf1d691986e068ae983be0e65647b74e27c935d036",
+      "password_salt": "69d24a4f3e46877c9f9e3dcc39b5940f",
+      "name": "Meera Nair",
+      "programme": "B.Tech EVE",
+      "year": 3,
+      "bio": "VLSI & FPGA verification student.",
+      "skills": [
+        "Verilog",
+        "SystemVerilog",
+        "Python",
+        "Digital Logic"
+      ],
+      "profile_pic": null,
+      "resume_url": null,
+      "endorsements": {},
+      "created_at": 1795624388.9106634
+    },
+    {
+      "username": "vikram",
+      "password_hash": "9fc1161af890178aece2b65bd8b57b45ccc32e24da89d1d27ddf09bafa90ca84",
+      "password_salt": "24575c3ceb5337e4950c4dab3adf8768",
+      "name": "Vikramaditya Joshi",
+      "programme": "B.Tech CSAI",
+      "year": 3,
+      "bio": "Backend systems & distributed databases.",
+      "skills": [
+        "Go",
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "profile_pic": null,
+      "resume_url": null,
+      "endorsements": {},
+      "created_at": 1795624388.9342623
+    },
+    {
+      "username": "shrish",
+      "password_hash": "c5aabd0743f412ad557d933c7132f7fe48a915eebf995d764b3d3a425723bc90",
+      "password_salt": "da348fad096e718eb77368046faf81ac",
+      "name": "Shrish Hegde",
+      "programme": "B.Tech CSAI",
+      "year": 2,
+      "bio": "Building drone flight controllers & AI systems.",
+      "skills": [
+        "Python",
+        "C",
+        "DSA",
+        "RISC-V",
+        "ESP32"
+      ],
+      "profile_pic": null,
+      "resume_url": null,
+      "endorsements": {
+        "Python": [
+          "ananya"
+        ],
+        "DSA": [
+          "rohan"
+        ]
+      },
+      "created_at": 1795624388.837805
+    },
+    {
+      "username": "ananya",
+      "password_hash": "5dd2ba2198a5f25ab55649362c0a96a5bd4a93148f29f153d376387a28c73a1d",
+      "password_salt": "b0ad46981fc250756d86086e1e8e022d",
+      "name": "Ananya Rao",
+      "programme": "B.Tech CSAI",
+      "year": 2,
+      "bio": "ML & computer vision enthusiast.",
+      "skills": [
+        "Python",
+        "PyTorch",
+        "OpenCV",
+        "DSA"
+      ],
+      "profile_pic": null,
+      "resume_url": null,
+      "endorsements": {
+        "PyTorch": [
+          "shrish"
+        ]
+      },
+      "created_at": 1795624388.862259
+    },
+    {
+      "username": "rohan",
+      "password_hash": "a928153b46b915d2e250f614a65eca8bee33ba4bb9562c09e1fdc38826d7fbc6",
+      "password_salt": "af46254c4bd2c5b1d06535d8d5a294ec",
+      "name": "Rohan Kulkarni",
+      "programme": "B.Tech EECS",
+      "year": 2,
+      "bio": "Embedded systems & robotics builder.",
+      "skills": [
+        "C++",
+        "ROS2",
+        "Arduino",
+        "PCB Design"
+      ],
+      "profile_pic": null,
+      "resume_url": null,
+      "endorsements": {},
+      "created_at": 1795624388.8865268
+    }
+  ],
+  "connections": [
+    [
+      "ananya",
+      "shrish"
+    ],
+    [
+      "rohan",
+      "shrish"
+    ],
+    [
+      "ananya",
+      "vikram"
+    ],
+    [
+      "meera",
+      "rohan"
+    ],
+    [
+      "meera",
+      "vikram"
+    ]
+  ],
+  "pending_requests": [
+    {
+      "sender": "kavya",
+      "receiver": "shrish"
+    }
+  ],
+  "posts": [
+    {
+      "post_id": "eb3daee5",
+      "author": "vikram",
+      "content": "Benchmarked B+Trees vs LSM-Trees for our Systems seminar. Notes coming soon!",
+      "image_url": null,
+      "media_type": null,
+      "created_at": 1795624388.9612982,
+      "likes": [],
+      "comments": []
+    },
+    {
+      "post_id": "85f6335a",
+      "author": "shrish",
+      "content": "Implemented custom Trie + MaxHeap + BFS graph engine in Python for ChanakyaConnect!",
+      "image_url": null,
+      "media_type": null,
+      "created_at": 1795624388.961514,
+      "likes": [],
+      "comments": []
+    },
+    {
+      "post_id": "2b8a53d3",
+      "author": "rohan",
+      "content": "Built a PID-stabilized ESP32 quadcopter frame in the Robotics Lab today.",
+      "image_url": null,
+      "media_type": null,
+      "created_at": 1795624388.9610465,
+      "likes": [
+        "shrish"
+      ],
+      "comments": [
+        {
+          "comment_id": "c7049454",
+          "author": "meera",
+          "text": "Clean wiring! Let's test telemetry next week.",
+          "created_at": 1795624388.9631016,
+          "replies": []
+        }
+      ]
+    },
+    {
+      "post_id": "f5232766",
+      "author": "ananya",
+      "content": "Just trained a YOLOv8 model for campus traffic analysis! Happy to share dataset notes.",
+      "image_url": null,
+      "media_type": null,
+      "created_at": 1795624388.960777,
+      "likes": [
+        "shrish",
+        "vikram"
+      ],
+      "comments": [
+        {
+          "comment_id": "a88641a3",
+          "author": "shrish",
+          "text": "Awesome work Ananya! How many epochs did you train?",
+          "created_at": 1795624388.9621959,
+          "replies": [
+            {
+              "comment_id": "ec3fb347",
+              "author": "ananya",
+              "text": "Thanks Shrish! 50 epochs on Colab.",
+              "created_at": 1795624388.9624226,
+              "replies": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notifications": {
+    "kavya": [],
+    "meera": [
+      {
+        "notif_id": "31d59269",
+        "recipient": "meera",
+        "notif_type": "connection_request",
+        "message": "rohan sent you a connection request.",
+        "actor": "rohan",
+        "created_at": 1795624388.959531,
+        "is_read": false
+      },
+      {
+        "notif_id": "64cd4903",
+        "recipient": "meera",
+        "notif_type": "connection_request",
+        "message": "vikram sent you a connection request.",
+        "actor": "vikram",
+        "created_at": 1795624388.9599388,
+        "is_read": false
+      }
+    ],
+    "vikram": [
+      {
+        "notif_id": "1fc9dbfe",
+        "recipient": "vikram",
+        "notif_type": "connection_request",
+        "message": "ananya sent you a connection request.",
+        "actor": "ananya",
+        "created_at": 1795624388.9592261,
+        "is_read": false
+      },
+      {
+        "notif_id": "b0b678ad",
+        "recipient": "vikram",
+        "notif_type": "connection_accepted",
+        "message": "meera accepted your connection request!",
+        "actor": "meera",
+        "created_at": 1795624388.9601045,
+        "is_read": false
+      }
+    ],
+    "shrish": [
+      {
+        "notif_id": "5c5a5f17",
+        "recipient": "shrish",
+        "notif_type": "connection_accepted",
+        "message": "ananya accepted your connection request!",
+        "actor": "ananya",
+        "created_at": 1795624388.9587286,
+        "is_read": false
+      },
+      {
+        "notif_id": "574a220d",
+        "recipient": "shrish",
+        "notif_type": "connection_accepted",
+        "message": "rohan accepted your connection request!",
+        "actor": "rohan",
+        "created_at": 1795624388.959076,
+        "is_read": false
+      },
+      {
+        "notif_id": "7e96cd09",
+        "recipient": "shrish",
+        "notif_type": "connection_request",
+        "message": "kavya sent you a connection request.",
+        "actor": "kavya",
+        "created_at": 1795624388.9602735,
+        "is_read": false
+      },
+      {
+        "notif_id": "e37bb1ed",
+        "recipient": "shrish",
+        "notif_type": "endorsement",
+        "message": "ananya endorsed your skill: Python.",
+        "actor": "ananya",
+        "created_at": 1795624388.9633899,
+        "is_read": false
+      },
+      {
+        "notif_id": "ecf5f5fc",
+        "recipient": "shrish",
+        "notif_type": "endorsement",
+        "message": "rohan endorsed your skill: DSA.",
+        "actor": "rohan",
+        "created_at": 1795624388.9636598,
+        "is_read": false
+      },
+      {
+        "notif_id": "3c57fe05",
+        "recipient": "shrish",
+        "notif_type": "message",
+        "message": "New message from ananya: Hey Shrish! Want to collaborate on the d",
+        "actor": "ananya",
+        "created_at": 1795624388.9653313,
+        "is_read": false
+      }
+    ],
+    "ananya": [
+      {
+        "notif_id": "0df1213d",
+        "recipient": "ananya",
+        "notif_type": "connection_request",
+        "message": "shrish sent you a connection request.",
+        "actor": "shrish",
+        "created_at": 1795624388.9585445,
+        "is_read": false
+      },
+      {
+        "notif_id": "9026ad0e",
+        "recipient": "ananya",
+        "notif_type": "connection_accepted",
+        "message": "vikram accepted your connection request!",
+        "actor": "vikram",
+        "created_at": 1795624388.9593828,
+        "is_read": false
+      },
+      {
+        "notif_id": "1d9308a1",
+        "recipient": "ananya",
+        "notif_type": "like",
+        "message": "shrish liked your post (f5232766).",
+        "actor": "shrish",
+        "created_at": 1795624388.961727,
+        "is_read": false
+      },
+      {
+        "notif_id": "4a1bd11b",
+        "recipient": "ananya",
+        "notif_type": "like",
+        "message": "vikram liked your post (f5232766).",
+        "actor": "vikram",
+        "created_at": 1795624388.9619765,
+        "is_read": false
+      },
+      {
+        "notif_id": "9a3375d3",
+        "recipient": "ananya",
+        "notif_type": "comment",
+        "message": "shrish commented on your post (f5232766).",
+        "actor": "shrish",
+        "created_at": 1795624388.9622016,
+        "is_read": false
+      },
+      {
+        "notif_id": "e8f846f5",
+        "recipient": "ananya",
+        "notif_type": "endorsement",
+        "message": "shrish endorsed your skill: PyTorch.",
+        "actor": "shrish",
+        "created_at": 1795624388.9639823,
+        "is_read": false
+      },
+      {
+        "notif_id": "1155843c",
+        "recipient": "ananya",
+        "notif_type": "message",
+        "message": "New message from shrish: Definitely! Let's sync after the DSA lec",
+        "actor": "shrish",
+        "created_at": 1795624388.9656627,
+        "is_read": false
+      }
+    ],
+    "rohan": [
+      {
+        "notif_id": "733307d4",
+        "recipient": "rohan",
+        "notif_type": "connection_request",
+        "message": "shrish sent you a connection request.",
+        "actor": "shrish",
+        "created_at": 1795624388.9589152,
+        "is_read": false
+      },
+      {
+        "notif_id": "acc174ff",
+        "recipient": "rohan",
+        "notif_type": "connection_accepted",
+        "message": "meera accepted your connection request!",
+        "actor": "meera",
+        "created_at": 1795624388.959725,
+        "is_read": false
+      },
+      {
+        "notif_id": "53b30172",
+        "recipient": "rohan",
+        "notif_type": "like",
+        "message": "shrish liked your post (2b8a53d3).",
+        "actor": "shrish",
+        "created_at": 1795624388.9627798,
+        "is_read": false
+      },
+      {
+        "notif_id": "53f76fbb",
+        "recipient": "rohan",
+        "notif_type": "comment",
+        "message": "meera commented on your post (2b8a53d3).",
+        "actor": "meera",
+        "created_at": 1795624388.963109,
+        "is_read": false
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "job_id": "48e4f0ba",
+      "posted_by": "rohan",
+      "title": "Embedded Drone Firmware Intern",
+      "company": "AeroCU Student Team",
+      "location": "Bangalore",
+      "job_type": "Internship",
+      "description": "Develop flight telemetry & PID control loops on ESP32 and RISC-V.",
+      "required_skills": [
+        "C",
+        "ESP32",
+        "RISC-V",
+        "Python"
+      ],
+      "applicants": [],
+      "application_statuses": {},
+      "application_resumes": {},
+      "created_at": 1795624388.9645793
+    },
+    {
+      "job_id": "31db2f64",
+      "posted_by": "ananya",
+      "title": "AI / Computer Vision Research Intern",
+      "company": "Chanakya AI & Robotics Lab",
+      "location": "Bangalore (On-Campus)",
+      "job_type": "Research",
+      "description": "Work on real-time drone obstacle detection using PyTorch and OpenCV.",
+      "required_skills": [
+        "Python",
+        "PyTorch",
+        "OpenCV",
+        "DSA"
+      ],
+      "applicants": [],
+      "application_statuses": {},
+      "application_resumes": {},
+      "created_at": 1795624388.9642851
+    },
+    {
+      "job_id": "74ba953d",
+      "posted_by": "vikram",
+      "title": "Backend FastAPI Intern",
+      "company": "Bengaluru FinTech Studio",
+      "location": "Bangalore (Hybrid)",
+      "job_type": "Internship",
+      "description": "Build high-throughput REST APIs with Python, FastAPI, and PostgreSQL.",
+      "required_skills": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "DSA"
+      ],
+      "applicants": [],
+      "application_statuses": {},
+      "application_resumes": {},
+      "created_at": 1795624388.9649184
+    }
+  ],
+  "messages": {
+    "ananya|shrish": [
+      {
+        "msg_id": "11f70667",
+        "sender": "ananya",
+        "receiver": "shrish",
+        "text": "Hey Shrish! Want to collaborate on the drone CV pipeline?",
+        "created_at": 1795624388.9653258
+      },
+      {
+        "msg_id": "d454b8cf",
+        "sender": "shrish",
+        "receiver": "ananya",
+        "text": "Definitely! Let's sync after the DSA lecture.",
+        "created_at": 1795624388.9656582
+      }
+    ]
+  }
+}
